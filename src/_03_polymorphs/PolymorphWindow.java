@@ -5,6 +5,8 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Random;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -13,12 +15,12 @@ import javax.swing.Timer;
 public class PolymorphWindow extends JPanel implements ActionListener{
     public static final int WIDTH = 900;
     public static final int HEIGHT = 600;
+    Random r = new Random();
+    
+    ArrayList<Polymorph> polymorphs;
     
     private JFrame window;
     private Timer timer;
-    
-    Polymorph bluePoly;
-    Polymorph redPoly;
     
     public static void main(String[] args) {
    	 new PolymorphWindow().buildWindow();
@@ -32,9 +34,26 @@ public class PolymorphWindow extends JPanel implements ActionListener{
    	 window.pack();
    	 window.setVisible(true);
    	 
-   	 bluePoly = new BluePolymorph(50, 50);
-   	 redPoly = new RedPolymorph(100, 100);
-   	 
+   	 polymorphs = new ArrayList<Polymorph>();
+   	 for(int i = 0; i < 10; i++) {
+   		 int a = r.nextInt(5);
+   		 if(a == 0) {
+   			 polymorphs.add(new RedPolymorph(r.nextInt(450), r.nextInt(450)));
+   		 }
+   		 if(a == 1) {
+   			polymorphs.add(new BluePolymorph(r.nextInt(450), r.nextInt(450)));
+   		 }
+   		 if(a == 2) {
+   			polymorphs.add(new MovingPolymorph(r.nextInt(450), r.nextInt(450)));
+   		 }
+   		 if(a == 3) {
+   			polymorphs.add(new ImagePolymorph(r.nextInt(450), r.nextInt(450)));
+   		 }
+   		 if(a == 4) {
+   			polymorphs.add(new SpeakingPolymorph(r.nextInt(450), r.nextInt(450)));
+   		 }
+   	 }
+
    	 timer = new Timer(1000 / 30, this);
    	 timer.start();
     }
@@ -45,14 +64,16 @@ public class PolymorphWindow extends JPanel implements ActionListener{
    	 g.fillRect(0, 0, 500, 500);
    	
    	 //draw polymorph
-   	 bluePoly.draw(g);
-   	 redPoly.draw(g);
+   	 for(Polymorph p : polymorphs) {
+   		 p.draw(g);
+   	 }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
    	 repaint();
-   	 bluePoly.update();
-   	 redPoly.update();
+   	for(Polymorph p : polymorphs) {
+  		 p.update();
+  	 }
     }
 }
