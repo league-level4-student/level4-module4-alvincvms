@@ -2,7 +2,7 @@ package _03_polymorphs;
 
 import java.awt.Graphics;
 
-public abstract class Polymorph {
+public abstract class Polymorph{
     private int x;
     private int y;
     private int width;

@@ -1,6 +1,7 @@
 package _03_polymorphs;
 
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 
 public class FollowingPolymorph extends Polymorph{
 	
