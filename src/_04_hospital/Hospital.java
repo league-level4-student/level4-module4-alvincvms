@@ -13,7 +13,7 @@ public class Hospital {
 	}
 	
 	public List<Doctor> getDoctors(){
-		return (List) d;
+		return (List<Doctor>) d;
 	}
 	
 	public void addDoctor(Doctor d) {
@@ -21,12 +21,29 @@ public class Hospital {
 	}
 	
 	public List<Patient> getPatients(){
-		return (List) p;
+		return (List<Patient>) p;
 	}
 	
 	public void addPatient(Patient p) {
 		this.p.add(p);
 	}
 	
-	
+	public void assignPatientsToDoctors() {
+		int x = 0;
+		for(int i = 0; i < d.size(); i++) {
+			for(int j = x; j < p.size(); j++) {
+				if(d.get(i).getPatients().size() < 3) {
+					try {
+						d.get(i).assignPatient(p.get(j));
+					} catch (DoctorFullException e) {
+						
+					}
+				}
+				else {
+					x = j;
+					break;
+				}
+			}
+		}
+	}
 }

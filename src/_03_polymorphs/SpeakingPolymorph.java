@@ -10,13 +10,12 @@ import javax.swing.JOptionPane;
 
 public class SpeakingPolymorph extends Polymorph{
 
-	Color c;
-	boolean mouseEntered;
+	private Color c;
+	boolean mouseEntered = false;
 	
 	SpeakingPolymorph(int x, int y) {
 		super(x, y);
-		c = Color.green;
-		mouseEntered = false;
+		c = new Color(0, 255, 0);
 		setWidth(50);
 		setHeight(50);
 	}
@@ -24,11 +23,17 @@ public class SpeakingPolymorph extends Polymorph{
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
-		g.setColor(new Color(0, 255, 0));
+		g.setColor(c);
 		g.fillRect(getX(), getY(), getWidth(), getHeight());
 	}
 	
 	public void update() {
 		super.update();
+		if(mouseEntered) {
+			c = new Color(100, 255, 100);
+		}
+		else {
+			c = new Color(0, 255, 0);
+		}
 	}
 }
