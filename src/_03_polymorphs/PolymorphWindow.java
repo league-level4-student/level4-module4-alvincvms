@@ -41,8 +41,8 @@ public class PolymorphWindow extends JPanel implements ActionListener, MouseList
    	 this.addMouseMotionListener(this);
    	 
    	 polymorphs = new ArrayList<Polymorph>();
-   	 for(int i = 0; i < 10; i++) {
-   		 int a = r.nextInt(6);
+   	 for(int i = 0; i < 15; i++) {
+   		 int a = r.nextInt(7);
    		 if(a == 0) {
    			 polymorphs.add(new RedPolymorph(r.nextInt(450), r.nextInt(450)));
    		 }
@@ -60,6 +60,9 @@ public class PolymorphWindow extends JPanel implements ActionListener, MouseList
    		 }
    		 if(a == 5) {
    			polymorphs.add(new FollowingPolymorph(r.nextInt(450), r.nextInt(450)));
+   		 }
+   		 if(a == 6) {
+   			polymorphs.add(new CircularPolymorph(r.nextInt(450), r.nextInt(450)));
    		 }
    	 }
 
@@ -83,8 +86,12 @@ public class PolymorphWindow extends JPanel implements ActionListener, MouseList
 	   	 repaint();
 	   	 for(Polymorph p : polymorphs) {
 	   		 p.update();
-	   		 if(p instanceof FollowingPolymorph && this.getMousePosition() != null) {
+	   		 if(p instanceof FollowingPolymorph) {
+	   			 try {
 	   			 ((FollowingPolymorph) p).setVel(this.getMousePosition().getX(), this.getMousePosition().getY());
+	   			 } catch(NullPointerException n) {
+	   				 
+	   			 }
 	   		 }
 	  	 }
 	   	
